@@ -27,7 +27,7 @@ public abstract class RheenGame implements Runnable {
 	private static double deltaTime;
 	
 	private static final DisplayMode modes[] = {
-			new DisplayMode(1920, 1080, 24, 0),
+//			new DisplayMode(1920, 1080, 24, 0),
 //			new DisplayMode(1600, 900, 32, 0), //Commented because 32 bit color (the third parameter) messes with my Google+ Chat app Graphics
 			new DisplayMode(1600, 900, 24, 0),
 			new DisplayMode(1600, 900, 16, 0),
