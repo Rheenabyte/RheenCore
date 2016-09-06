@@ -1,2 +1,2 @@
 # RheenCore (WIP)
-Game engine written in Java
+Game engine written in Java (WIP)
