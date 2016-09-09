@@ -1,13 +1,11 @@
 package rheencore;
 
+import rheencore.input.Input;
+
 public class Engine {
 	
-	public static void updateEngine(){
-		pollInput();
-	}
-
-	private static void pollInput() {
-		
+	public static void update(){
+		Input.pollInput();
 	}
 	
 }

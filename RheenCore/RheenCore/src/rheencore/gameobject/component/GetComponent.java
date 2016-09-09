@@ -1,8 +1,10 @@
 package rheencore.gameobject.component;
 
+import rheencore.gameobject.GameObject;
+
 public class GetComponent<T> {
 	
-	public GetComponent(){
+	public GetComponent(GameObject gameObject){
 		
 	}
 	

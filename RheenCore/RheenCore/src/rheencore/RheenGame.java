@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import rheencore.gameobject.GameObject;
 import rheencore.graphics.ScreenManager;
+import rheencore.input.Input;
 import rheencore.input.Keys;
 import rheencore.input.Mouse;
 import rheencore.maths.vector.f.Vec2f;
@@ -49,6 +50,8 @@ public abstract class RheenGame implements Runnable {
     	//initialize Points
     	Mouse.position = new Vec2f();
     	
+    	Input.init();
+    	
     	window.addKeyListener(new Keys());
 		window.addMouseListener(new Mouse());
 		window.addMouseMotionListener(new Mouse());
@@ -70,7 +73,7 @@ public abstract class RheenGame implements Runnable {
 			lastTime = System.nanoTime();
 			elapsedTime += deltaTime;
 			
-			Engine.updateEngine();
+			Engine.update();
 			
     		game.update();
     		for(GameObject e : RheenGame.gameObjects){
