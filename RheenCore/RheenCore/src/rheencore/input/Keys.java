@@ -20,11 +20,8 @@ public class Keys implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent e){
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-			
-		}
-		
 		setKeyDown(e.getKeyCode());
+		
 		e.consume();
 	}
 

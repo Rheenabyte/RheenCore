@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Robot;
 import java.awt.Window;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import rheencore.graphics.ScreenManager;
 import rheencore.input.Input;
 import rheencore.input.Keys;
 import rheencore.input.Mouse;
-import rheencore.maths.vector.f.Vec2f;
+import rheencore.maths.vector.d.Vec2d;
 
 /**
  * @author Rheenabyte
@@ -21,6 +22,11 @@ public abstract class RheenGame implements Runnable {
 	
 	public static ScreenManager screen = new ScreenManager();
 	private static boolean running = true;
+	
+	protected static Robot robot;
+	
+	public static Vec2d center;
+	protected static boolean centered;
 	
 	private static long startTime;
 	private static long lastTime;
@@ -38,7 +44,8 @@ public abstract class RheenGame implements Runnable {
 	public static ArrayList<GameObject> gameObjects = new ArrayList<>();
 	
     public static final void run(RheenGame game){
-    	//main initialization stuff
+    	
+    	//Initialize Screen
     	DisplayMode dm = screen.getFirstCompatibleDisplayMode(modes);
     	screen.setFullScreen(dm);
     	Window window = screen.getFullScreenWindow();
@@ -48,7 +55,7 @@ public abstract class RheenGame implements Runnable {
     	window.setForeground(Color.WHITE);
     	
     	//initialize Points
-    	Mouse.position = new Vec2f();
+    	Mouse.position = new Vec2d();
     	
     	Input.init();
     	
@@ -57,6 +64,7 @@ public abstract class RheenGame implements Runnable {
 		window.addMouseMotionListener(new Mouse());
 		window.addMouseWheelListener(new Mouse());
 		
+		//Start the main game loop
 		mainGameLoop(game);
 		
 		screen.restoreScreen();
@@ -68,6 +76,7 @@ public abstract class RheenGame implements Runnable {
 		elapsedTime = 0;
     	
     	game.run();
+    	
     	while(running){
     		deltaTime = (float)(System.nanoTime() - lastTime) / 1000000000;
 			lastTime = System.nanoTime();
@@ -76,6 +85,7 @@ public abstract class RheenGame implements Runnable {
 			Engine.update();
 			
     		game.update();
+    		
     		for(GameObject e : RheenGame.gameObjects){
     			e.update();
     		}
@@ -104,39 +114,19 @@ public abstract class RheenGame implements Runnable {
 		for(GameObject e : RheenGame.gameObjects){
 			e.render(graphics, window);
 		}
-		
-		/*///Debug stuff (Comment to hide obtrusive debugging graphics)
-		{
-			//Random info
-			graphics.drawString("Player1 posX: " + player.position.x, 20, 20);
-			graphics.drawString("Player1 posY: " + player.position.y, 20, 40);
-			graphics.drawString("Player1 velX: " + player.velocity.x, 20, 60);
-			graphics.drawString("Player1 velY: " + player.velocity.y, 20, 80);
-			graphics.drawString("Player1 distanceToMouse: " + player.distanceToMouse, 20, 100);
-			graphics.drawString("MouseX: " + Mouse.position.x, 20, 120);
-			graphics.drawString("MouseY: " + Mouse.position.y, 20, 140);
-						
-			//Triangle of the player and the mouse cursor
-			{
-				graphics.setColor(Color.MAGENTA);
-				
-				graphics.drawLine((int)player.position.x, (int)player.position.y, (int)Mouse.position.x, (int)Mouse.position.y);  //Hypotenuse
-				graphics.rotate(
-						Math.sin((player.position.y - Mouse.position.y) / (player.position.x - Mouse.position.x) ),
-						player.position.x, player.position.y);
-				graphics.drawString("" + player.distanceToMouse, player.position.x + (player.distanceToMouse / 2), player.position.y);
-				graphics.rotate(
-						-Math.sin( (player.position.y - Mouse.position.y) / (player.position.x - Mouse.position.x) ),
-						player.position.x, player.position.y);
-				graphics.drawString("" + (Math.sin(Math.toRadians(player.position.y - Mouse.position.y) / Math.toRadians(player.position.x - Mouse.position.x))), 20, 160);
-				
-				
-				graphics.drawLine((int)player.position.x, (int)player.position.y, (int)Mouse.position.x, (int)player.position.y); //Base
-				
-				graphics.drawLine((int)Mouse.position.x, (int)player.position.y, (int)Mouse.position.x, (int)Mouse.position.y);   //Height
-			}
+	}
+	
+	/**
+	 * Center the mouse cursor on the screen
+	 */
+	protected synchronized static void centerMouse(){
+		Window window = screen.getFullScreenWindow();
+		if(robot != null && window.isShowing()){
+			center.set(window.getWidth() / 2, window.getHeight() / 2);
+			//SwingUtilities.convertPointToScreen(center, window);
+			centered = true;
+			robot.mouseMove((int)center.getX(), (int)center.getY());
 		}
-		/*///End Debug Stuff
 	}
 	
 	public static final double getDeltaTime(){

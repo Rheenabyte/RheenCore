@@ -31,5 +31,7 @@ public interface ITickable {
 	 * @param graphics
 	 * @param window
 	 */
-	public abstract void render(Graphics2D graphics, Window window);
+	public default void render(Graphics2D graphics, Window window){
+		
+	}
 }

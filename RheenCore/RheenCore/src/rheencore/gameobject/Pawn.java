@@ -13,10 +13,7 @@ public class Pawn extends GameObject {
 	}
 	
 	public void render(Graphics2D graphics, Window window){
-		graphics.setColor(this.color);
-		graphics.fillRoundRect((int)this.transform.position.getX(), (int)this.transform.position.getY(), 30, 30, 35, 35);
 		
-		graphics.setColor(window.getForeground());
 	}
 	
 }
