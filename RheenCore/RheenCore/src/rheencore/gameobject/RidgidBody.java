@@ -1,31 +1,15 @@
 package rheencore.gameobject;
 
-import rheencore.maths.vector.d.Vec3d;
+import rheencore.RheenGame;
+import rheencore.maths.AxisAlignedBoundingBox;
 
-public abstract class RidgidBody extends GameObject {
+public class RidgidBody {
 	
-	public double radius;
-	public double density;
+	public AxisAlignedBoundingBox boundingbox;
 	
-	public RidgidBody(float radius){
-		super();
-		this.transform.position = new Vec3d();
-		this.radius = radius;
-		this.density = 1F;
-	}
-	
-	public RidgidBody(double radius, double density){
-		super();
-		this.transform.position = new Vec3d();
-		this.radius = radius;
-		this.density = density;
-	}
-	
-	public RidgidBody(){
-		super();
-	}
-	
-	public String toString(){
-		return "This is the RidgidBody Class";
+	public RidgidBody(GameObject gameObject){
+		this.boundingbox = new AxisAlignedBoundingBox();
+		
+		RheenGame.gameObjectsWithRidgidBodies.add(gameObject);
 	}
 }

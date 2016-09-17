@@ -45,7 +45,7 @@ public class Vec3i extends Vec2i {
 		this.z = z;
 	}
 	
-	public float getZ(){
+	public int getZ(){
 		return this.z;
 	}
 }

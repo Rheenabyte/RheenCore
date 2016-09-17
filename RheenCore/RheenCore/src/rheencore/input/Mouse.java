@@ -6,16 +6,16 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import rheencore.maths.vector.d.Vec2d;
+import rheencore.maths.vector.i.Vec2i;
 
 public class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener{
 
-	public static Vec2d position;
-	public static Vec2d moved;
+	public static Vec2i position;
+	public static Vec2i moved;
 	
 	public Mouse(){
-		position = new Vec2d();
-		moved = new Vec2d();
+		position = new Vec2i();
+		moved = new Vec2i();
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		Mouse.position.set(new Vec2d(e.getX(), e.getY()));
+		Mouse.position.set(new Vec2i(e.getX(), e.getY()));
 		
 		e.consume();
 	}

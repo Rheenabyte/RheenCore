@@ -13,6 +13,14 @@ public class Vec3d extends Vec2d {
 		this.z = z;
 	}
 	
+	public Vec3d(double x, double y){
+		new Vec3d(x, y, 0F);
+	}
+	
+	public Vec3d(Vec2d vec2d){
+		new Vec3d(vec2d.getX(), vec2d.getY(), 0F);
+	}
+	
 	public Vec3d(){
 		new Vec3d(0F, 0F, 0F);
 	}

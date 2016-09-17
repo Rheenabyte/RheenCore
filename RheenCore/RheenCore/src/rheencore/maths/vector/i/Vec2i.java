@@ -3,8 +3,9 @@ package rheencore.maths.vector.i;
 /**
  * A two dimensional integer vector
  */
-public class Vec2i extends Vec1i {
+public class Vec2i {
 	
+	protected int x;
 	protected int y;
 	
 	public Vec2i(int x, int y){
@@ -31,6 +32,10 @@ public class Vec2i extends Vec1i {
 		this.y = vector.y;
 	}
 	
+	public void set(int x) {
+		this.x = x;
+	}
+	
 	public void set(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -42,6 +47,14 @@ public class Vec2i extends Vec1i {
 	
 	public int getY(){
 		return this.y;
+	}
+	
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	public int getX(){
+		return this.x;
 	}
 	
 }

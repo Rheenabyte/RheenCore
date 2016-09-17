@@ -14,6 +14,22 @@ public class Vec4i extends Vec3i {
 		this.w = w;
 	}
 	
+	public Vec4i(int x, int y, int z){
+		new Vec4i(x, y, z, 0);
+	}
+	
+	public Vec4i(int x, int y){
+		new Vec4i(x, y, 0, 0);
+	}
+	
+	public Vec4i(Vec3i vec3i){
+		new Vec4i(vec3i.getX(), vec3i.getY(), vec3i.getZ(), 0);
+	}
+	
+	public Vec4i(Vec2i vec2i){
+		new Vec4i(vec2i.getX(), vec2i.getY(), 0, 0);
+	}
+	
 	public Vec4i(){
 		new Vec4i(0, 0, 0, 0);
 	}

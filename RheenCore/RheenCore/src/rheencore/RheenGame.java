@@ -13,7 +13,7 @@ import rheencore.graphics.ScreenManager;
 import rheencore.input.Input;
 import rheencore.input.Keys;
 import rheencore.input.Mouse;
-import rheencore.maths.vector.d.Vec2d;
+import rheencore.maths.vector.i.Vec2i;
 
 /**
  * @author Rheenabyte
@@ -25,7 +25,7 @@ public abstract class RheenGame implements Runnable {
 	
 	protected static Robot robot;
 	
-	public static Vec2d center;
+	public static Vec2i center;
 	protected static boolean centered;
 	
 	private static long startTime;
@@ -42,6 +42,7 @@ public abstract class RheenGame implements Runnable {
 	};
 	
 	public static ArrayList<GameObject> gameObjects = new ArrayList<>();
+	public static ArrayList<GameObject> gameObjectsWithRidgidBodies = new ArrayList<>();
 	
     public static final void run(RheenGame game){
     	
@@ -55,7 +56,7 @@ public abstract class RheenGame implements Runnable {
     	window.setForeground(Color.WHITE);
     	
     	//initialize Points
-    	Mouse.position = new Vec2d();
+    	Mouse.position = new Vec2i();
     	
     	Input.init();
     	
@@ -86,9 +87,19 @@ public abstract class RheenGame implements Runnable {
 			
     		game.update();
     		
-    		for(GameObject e : RheenGame.gameObjects){
-    			e.update();
+    		for(int i = 0; i < RheenGame.gameObjects.size(); i++){
+    			GameObject gameObject = RheenGame.gameObjects.get(i);
+    			
+    			if(RheenGame.gameObjectsWithRidgidBodies.contains(gameObject)){
+    				for(int j = 0; j < RheenGame.gameObjectsWithRidgidBodies.size(); j++){
+    					if(gameObject.ridgidBody.boundingbox.vsAABB((RheenGame.gameObjectsWithRidgidBodies.get(j).ridgidBody.boundingbox) != gameObject.ridgidBody.boundingbox ? (RheenGame.gameObjectsWithRidgidBodies.get(j).ridgidBody.boundingbox) : null)){
+    						System.out.println("lol");
+    					}
+    				}
+    			}
+    			gameObject.update();
     		}
+    		
     		for(GameObject e : RheenGame.gameObjects){
     			e.lateUpdate();
     		}

@@ -5,7 +5,7 @@ package rheencore.maths.vector.d;
  */
 public class Vec4d extends Vec3d {
 	
-	public double w;
+	protected double w;
 	
 	public Vec4d(double x, double y, double z, double w){
 		this.x = x;
@@ -14,8 +14,24 @@ public class Vec4d extends Vec3d {
 		this.w = w;
 	}
 	
+	public Vec4d(double x, double y, double z){
+		new Vec4d(x, y, z, 0D);
+	}
+	
+	public Vec4d(double x, double y){
+		new Vec4d(x, y, 0D, 0D);
+	}
+	
+	public Vec4d(Vec3d vec3d){
+		new Vec4d(vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0D);
+	}
+	
+	public Vec4d(Vec2d vec2d){
+		new Vec4d(vec2d.getX(), vec2d.getY(), 0D, 0D);
+	}
+	
 	public Vec4d(){
-		new Vec4d(0F, 0F, 0F, 0F);
+		new Vec4d(0D, 0D, 0D, 0D);
 	}
 	
 	public void add(Vec4d vector){
